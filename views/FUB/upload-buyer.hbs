@@ -1,0 +1,231 @@
+<h1>New Lead</h1>
+
+<form action="/fub/new-buyer" method="POST">
+  <h4>Stage</h4>
+  <select name="stage" id="stage">
+
+  </select>
+  <br />
+  <br />
+  <h4>Agent</h4>
+  <select name="agent" id="agent">
+
+  </select>
+  <br />
+  <br />
+  <label>
+    Name:
+    <input type="text" name="name" />
+  </label>
+  <br />
+  <label>
+    Last Name:
+    <input type="text" name="lastname" />
+  </label>
+  <br />
+  <label style="margin: 2px;">
+    Email Address:
+    <input type="email" name="email" />
+  </label>
+  <br />
+  <label style="margin: 2px;">
+    Phone Number
+    <input type="text" name="phonenumber" />
+  </label>
+
+  <br />
+  <br />
+  <br />
+
+  <h4>States Interested</h4>
+  <br />
+  <br />
+
+  {{! <label class="form-label select-label">Example label</label> }}
+  <div class="all-states">
+    <div class="states-container">
+      <input type="checkbox" value="AL" name="AL" />
+      Alabama
+      <br />
+      <input type="checkbox" value="AK" name="AK" />
+      Alaska
+      <br />
+      <input type="checkbox" value="AZ" name="AZ" />
+      Arizona
+      <br />
+      <input type="checkbox" value="AR" name="AR" />
+      Arkansas
+      <br />
+
+      <input type="checkbox" value="CA" name="CA" />
+      California
+      <br />
+      <input type="checkbox" value="CO" name="CO" />
+      Colorado
+      <br />
+      <input type="checkbox" value="CT" name="CT" />
+      Connecticut
+      <br />
+
+      <input type="checkbox" value="DE" name="DE" />
+      Delaware
+      <br />
+      <input type="checkbox" value="DC" name="DC" />
+      District Of Columbia
+      <br />
+
+      <input type="checkbox" value="FL" name="FL" />
+      Florida
+      <br />
+
+      <input type="checkbox" value="GA" name="GA" />
+      Georgia
+      <br />
+
+      <input type="checkbox" value="HI" name="HI" />
+      Hawaii
+      <br />
+
+      <input type="checkbox" value="ID" name="ID" />
+      Idaho
+      <br />
+      <input type="checkbox" value="IL" name="IL" />
+      Illinois
+      <br />
+      <input type="checkbox" value="IN" name="IN" />
+      Indiana
+      <br />
+      <input type="checkbox" value="IA" name="IA" />
+      Iowa
+      <br />
+
+      <input type="checkbox" value="KS" name="KS" />
+      Kansas
+      <br />
+      <input type="checkbox" value="KY" name="KY" />
+      Kentucky
+      <br />
+    </div>
+    <div class="states-container">
+
+      <input type="checkbox" value="LA" name="LA" />
+      Louisiana
+      <br />
+
+      <input type="checkbox" value="ME" name="ME" />
+      Maine
+      <br />
+      <input type="checkbox" value="MD" name="MD" />
+      Maryland
+      <br />
+      <input type="checkbox" value="MA" name="MA" />
+      Massachusetts
+      <br />
+      <input type="checkbox" value="MI" name="MI" />
+      Michigan
+      <br />
+      <input type="checkbox" value="MN" name="MN" />
+      Minnesota
+      <br />
+      <input type="checkbox" value="MS" name="MS" />
+      Mississippi
+      <br />
+
+      <input type="checkbox" value="MO" name="MO" />
+      Missouri
+      <br />
+      <input type="checkbox" value="MT" name="MT" />
+      Montana
+      <br />
+
+      <input type="checkbox" value="NE" name="NE" />
+      Nebraska
+      <br />
+      <input type="checkbox" value="NV" name="NV" />
+      Nevada
+      <br />
+      <input type="checkbox" value="NH" name="NH" />
+      New Hampshire
+      <br />
+      <input type="checkbox" value="NJ" name="NJ" />
+      New Jersey
+      <br />
+      <input type="checkbox" value="NM" name="NM" />
+      New Mexico
+      <br />
+      <input type="checkbox" value="NY" name="NY" />
+      New York
+      <br />
+      <input type="checkbox" value="NC" name="NC" />
+      North Carolina
+      <br />
+      <input type="checkbox" value="ND" name="ND" />
+      North Dakota
+      <br />
+    </div>
+    <div class="states-container">
+
+      <input type="checkbox" value="OH" name="OH" />
+      Ohio
+      <br />
+      <input type="checkbox" value="OK" name="OK" />
+      Oklahoma
+      <br />
+      <input type="checkbox" value="OR" name="OR" />
+      Oregon
+      <br />
+
+      <input type="checkbox" value="PA" name="PA" />
+      Pennsylvania
+      <br />
+
+      <input type="checkbox" value="RI" name="RI" />
+      Rhode Island
+      <br />
+
+      <input type="checkbox" value="SC" name="SC" />
+      South Carolina
+      <br />
+      <input type="checkbox" value="SD" name="SD" />
+      South Dakota
+      <br />
+
+      <input type="checkbox" value="TN" name="TN" />
+      Tennessee
+      <br />
+      <input type="checkbox" value="TX" name="TX" />
+      Texas
+      <br />
+
+      <input type="checkbox" value="UT" name="UT" />
+      Utah
+      <br />
+
+      <input type="checkbox" value="VT" name="VT" />
+      Vermont
+      <br />
+      <input type="checkbox" value="VA" name="VA" />
+      Virginia
+      <br />
+
+      <input type="checkbox" value="WA" name="WA" />
+      Washington
+      <br />
+      <input type="checkbox" value="WV" name="WV" />
+      West Virginia
+      <br />
+      <input type="checkbox" value="WI" name="WI" />
+      Wisconsin
+      <br />
+      <input type="checkbox" value="WY" name="WY" />
+      Wyoming
+      <br />
+    </div>
+  </div>
+
+  {{! <label class="form-label select-label">Example label</label> }}
+
+  <br />
+
+  <button type="submit">Add to FUB</button>
+</form>
