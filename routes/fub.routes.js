@@ -28,8 +28,7 @@ router.post("/new-buyer", (req, res, next) => {
       "X-System-Key": "a3c62a5b90680ec768a39c14b366b2b3",
       accept: "application/json",
       "content-type": "application/json",
-      authorization:
-        "Basic ZmthXzE4b3NMSVVsOUtSWWdOUkgxUTJYUWh0TlZ1MG5SeFE3Tkc6",
+      authorization: process.env.FUBKEY,
     },
     data: {
       person: {
