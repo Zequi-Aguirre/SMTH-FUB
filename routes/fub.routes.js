@@ -23,13 +23,15 @@ router.get("/report", (req, res, next) => {
     { name: "Lidia Reyes" },
     { name: "Wilman Lopez" },
     { name: "Jairo Mercado" },
-    { name: "Chris Ovalles" },
     { name: "Alain Phard" },
+    { name: "Chris Ovalles" },
+    { name: "Eric Angre" },
   ];
 
   agents.forEach((agent) => {
     agent.callsFortheWeek = [];
     agent.leadsStageChanged = [];
+    agent.longestCalls = [];
     agent.leadsCalledTwiceDay1 = 0;
     agent.leadsCalled3DaysAfter = 0;
 
@@ -63,7 +65,26 @@ router.get("/report", (req, res, next) => {
       // console.log({ call: call.id });
     });
 
+    agent.callsFortheWeek.forEach((call) => {
+      // console.log(typeof call.duration);
+
+      if (call.duration > 240) {
+        let simplifiedCall = {
+          id: call.id,
+          name: call.name,
+          created: call.created,
+          userName: call.userName,
+          recordingUrl: call.recordingUrl,
+          duration: call.duration,
+        };
+
+        agent.longestCalls.push(simplifiedCall);
+      }
+      // console.log({ call: call.id });
+    });
+
     agent.leadsForTheWeek.forEach((lead) => {
+      let leadCreatedMS = new Date(lead.created).getTime();
       // console.log(lead.created.substring(0, 10));
       let leadCalls = 0;
       agent.callsFortheWeek.forEach((call) => {
@@ -74,24 +95,45 @@ router.get("/report", (req, res, next) => {
           leadCalls++;
           if (leadCalls >= 2) {
             // console.log(agent.leadsCalledTwiceDay1);
+            leadCalls = 0;
             agent.leadsCalledTwiceDay1++;
           }
         }
 
+        let thisLeadCalls3Days = 0;
+
         for (let i = 1; i < 3; i++) {
           let nextDay =
-            lead.created.substring(0, 8) + lead.created.substring(8, 10);
+            new Date(lead.created).getTime() + i * 24 * 60 * 60 * 1000;
+
+          let nextDayDay = "" + new Date(nextDay).getDate();
+          let nextDayMonth = new Date(nextDay).getUTCMonth() + 1;
+          let nextDayYear = "" + new Date(nextDay).getFullYear();
+
+          if (nextDayDay.length < 2) {
+            nextDayDay = "0" + nextDayDay;
+          }
+
+          if (nextDayMonth.length < 2) {
+            nextDayMonth = "0" + nextDayMonth;
+          }
+
+          let nextDayString = `${nextDayYear}-${nextDayMonth}-${nextDayDay}`;
+
+          // let nextDay =
+          //   lead.created.substring(0, 8) + lead.created.substring(8, 10);
 
           if (
-            lead.created.substring(0, 10) === call.created.substring(0, 10) &&
+            nextDayString === call.created.substring(0, 10) &&
             lead.id === call.personId
           ) {
-            console.log("lead.id");
-            console.log(lead.id);
-            console.log("call.personId");
-            console.log(call.personId);
-            console.log("test");
-            console.log(new Date(nextDay));
+            thisLeadCalls3Days++;
+
+            if (thisLeadCalls3Days === 3) {
+              agent.leadsCalled3DaysAfter++;
+            }
+
+            // console.log(new Date(nextDay));
           }
         }
       });
@@ -103,11 +145,13 @@ router.get("/report", (req, res, next) => {
   let agentsSimplify = agents.map((agent) => {
     return {
       name: agent.name,
-      leadsStageChanged: agent.leadsStageChanged.length,
       leadsForTheWeek: agent.leadsForTheWeek.length,
-      callsFortheWeek: agent.callsFortheWeek.length,
       leadsCalledTwiceDay1: agent.leadsCalledTwiceDay1,
       leadsCalled3DaysAfter: agent.leadsCalled3DaysAfter,
+      leadsStageChanged: agent.leadsStageChanged.length,
+      newLeadsCallsFortheWeek: agent.callsFortheWeek.length,
+      conversations: agent.longestCalls.length,
+      longestCalls: agent.longestCalls,
     };
   });
 
@@ -125,12 +169,13 @@ router.get("/leads", (req, res, next) => {
   console.log(data);
 
   let agents = [
-    "Isabella Foster Villanueva",
-    "Lidia Reyes",
-    "Wilman Lopez",
-    "Alain Phard",
-    "Jairo Mercado",
+    // "Isabella Foster Villanueva",
+    // "Lidia Reyes",
+    // "Wilman Lopez",
+    // "Alain Phard",
+    // "Jairo Mercado",
     "Chris Ovalles",
+    "Eric Angre",
   ];
 
   console.log("/leads");
@@ -143,7 +188,7 @@ router.get("/leads", (req, res, next) => {
     // ----0-0-0-0-0--0-0-0-0--0-00-0-0--00-0-0-0-0-0-00-0-0--0-
     const options = {
       method: "GET",
-      url: `https://api.followupboss.com/v1/people?sort=created&limit=100&offset=0&lastActivityAfter=2022-11-28%2000%3A00%3A00&assignedTo=${agents[
+      url: `https://api.followupboss.com/v1/people?sort=-created&limit=100&offset=0&lastActivityAfter=2022-11-28%2000%3A00%3A00&assignedTo=${agents[
         counter
       ].replace(" ", "%20")}&includeTrash=false&includeUnclaimed=false`,
       headers: {
@@ -199,7 +244,7 @@ router.get("/leads", (req, res, next) => {
             created: lead.created,
             name: lead.name,
             stage: lead.stage,
-            agent: lead.assignedTo,
+            assignedTo: lead.assignedTo,
           });
         });
 
